@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.carinfosystem.repository.CarSearchSpecification.searchCarSpecification;
+
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
@@ -51,6 +53,7 @@ public class CarController {
         return carRepository.findAll();
     }
 
+
     @GetMapping("/{id}")
     public Car findById(@PathVariable Long id){
         return carRepository.findById(id).orElse(null);
@@ -58,7 +61,7 @@ public class CarController {
 
     @PostMapping("/search")
     public List<Car> search(@RequestBody SearchCarDto searchCarDto){
-       return null;
+        return carRepository.findAll(searchCarSpecification(searchCarDto));
     }
 
     @PostMapping

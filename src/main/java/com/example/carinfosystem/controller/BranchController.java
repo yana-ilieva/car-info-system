@@ -18,6 +18,11 @@ public class BranchController {
         return branchRepository.findAll();
     }
 
+    @GetMapping
+    public List<Branch> findAll(){
+        return branchRepository.findAll();
+    }
+
     @GetMapping("/{id}")
     public Branch findById(@PathVariable Long id){
         return branchRepository.findById(id).orElse(null);

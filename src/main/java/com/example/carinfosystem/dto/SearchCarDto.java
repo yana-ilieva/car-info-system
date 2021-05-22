@@ -10,12 +10,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchCarDto {
-    private String branch;
-    private String brand;
-    private String model;
+    private Long branch;
+    private Long brand;
+    private Long model;
+    private Long city;
     private String fuelType;
     private String carType;
     private String color;
     private String productionYear;
-    private List<String> extras;
+    private List<Long> extras;
+    private String registrationNumber;
 }

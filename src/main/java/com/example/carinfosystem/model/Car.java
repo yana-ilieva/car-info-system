@@ -20,6 +20,8 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String registrationNumber;
+
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
@@ -30,13 +32,17 @@ public class Car {
     @Enumerated(value = EnumType.STRING)
     private CarType carType;
 
-    private Integer productionYear;
+    private String productionYear;
 
     @Enumerated(value = EnumType.STRING)
     private Color color;
 
     @ManyToMany
     private List<Extra> extras;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     private Boolean deleted;
 }
