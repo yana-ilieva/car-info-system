@@ -3,6 +3,7 @@ package com.example.carinfosystem.model;
 import com.example.carinfosystem.enums.CarType;
 import com.example.carinfosystem.enums.Color;
 import com.example.carinfosystem.enums.FuelType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,10 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
+    private List<Note> notes;
 
     private Boolean deleted;
 }

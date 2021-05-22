@@ -16,7 +16,7 @@ import java.util.Optional;
 import static com.example.carinfosystem.repository.CarSearchSpecification.searchCarSpecification;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/cars")
 public class CarController {
     @Autowired
     private CarRepository carRepository;
@@ -68,6 +68,7 @@ public class CarController {
     public Car save(@RequestBody Car car){
         try{
             car.setId(null);
+            car.setDeleted(false);
             return carRepository.save(car);
         } catch (Exception e){
             throw new RuntimeException("Could not save car.");

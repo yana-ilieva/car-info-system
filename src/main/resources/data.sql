@@ -23,6 +23,10 @@ values (1000, 'B1234CA','MANUAL' ,'WHITE', false, 'GAS', '2012', 1000, 1000),
        (1002, 'CC5555A','MANUAL', 'RED', false, 'DIESEL', '2013', 1001, 1001),
        (1003, 'B9999BT','AUTOMATIC', 'ORANGE', false, 'GAS', '2015', 1005, 1004);
 
+insert into notes(id, content, car_id, created_at)
+values (1000, 'A bit scratched on the driver''s door.', 1000, now()::timestamp),
+        (1001, 'Has to get oil changed', 1001, now()::timestamp);
+
 insert into cars_extras (car_id, extras_id)
 values(1000, 1000), (1001, 1000), (1001, 1001), (1002, 1000);
 
