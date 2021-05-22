@@ -35,7 +35,7 @@ public class Car {
     @Enumerated(value = EnumType.STRING)
     private Color color;
 
-    @OneToMany
+    @ManyToMany
     private List<Extra> extras;
 
     private Boolean deleted;
