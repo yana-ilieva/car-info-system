@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,17 +28,22 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "model_id")
+    @NotNull
     private Model model;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     private FuelType fuelType;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     private CarType carType;
 
+    @NotBlank
     private String productionYear;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull
     private Color color;
 
     @ManyToMany
@@ -44,6 +51,7 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "branch_id")
+    @NotNull
     private Branch branch;
 
     @JsonManagedReference
