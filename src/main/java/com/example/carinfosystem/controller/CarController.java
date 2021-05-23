@@ -6,9 +6,16 @@ import com.example.carinfosystem.enums.Color;
 import com.example.carinfosystem.enums.FuelType;
 import com.example.carinfosystem.model.Car;
 import com.example.carinfosystem.repository.CarRepository;
+import com.example.carinfosystem.util.ExcelExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,10 +60,23 @@ public class CarController {
         return carRepository.findAll();
     }
 
-
     @GetMapping("/{id}")
     public Car findById(@PathVariable Long id){
         return carRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("/export_deleted")
+    public void findAllDeleted(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String currentDateTime = LocalDateTime.now().format(formatter);
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=deleted_cars_"+currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        ExcelExporter exporter = new ExcelExporter(carRepository.findByDeletedTrue());
+        exporter.export(response);
     }
 
     @PostMapping("/search")
@@ -92,6 +112,7 @@ public class CarController {
         Optional<Car> carOpt = carRepository.findById(id);
         if(carOpt.isPresent()){
             carOpt.get().setDeleted(true);
+            carOpt.get().setDeletedAt(LocalDateTime.now());
             carRepository.save(carOpt.get());
         }
     }

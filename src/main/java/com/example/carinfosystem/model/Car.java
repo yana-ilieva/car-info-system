@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -50,4 +51,6 @@ public class Car {
     private List<Note> notes;
 
     private Boolean deleted;
+
+    private LocalDateTime deletedAt;
 }
