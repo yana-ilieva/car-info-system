@@ -28,22 +28,17 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "model_id")
-    @NotNull
     private Model model;
 
     @Enumerated(value = EnumType.STRING)
-    @NotNull
     private FuelType fuelType;
 
     @Enumerated(value = EnumType.STRING)
-    @NotNull
     private CarType carType;
 
-    @NotBlank
     private String productionYear;
 
     @Enumerated(value = EnumType.STRING)
-    @NotNull
     private Color color;
 
     @ManyToMany

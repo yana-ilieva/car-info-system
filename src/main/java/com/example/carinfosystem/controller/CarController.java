@@ -1,11 +1,14 @@
 package com.example.carinfosystem.controller;
 
+import com.example.carinfosystem.dto.SaveCarDto;
 import com.example.carinfosystem.dto.SearchCarDto;
 import com.example.carinfosystem.enums.CarType;
 import com.example.carinfosystem.enums.Color;
 import com.example.carinfosystem.enums.FuelType;
 import com.example.carinfosystem.model.Car;
+import com.example.carinfosystem.model.Extra;
 import com.example.carinfosystem.repository.CarRepository;
+import com.example.carinfosystem.repository.ExtraRepository;
 import com.example.carinfosystem.util.ExcelExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.carinfosystem.repository.CarSearchSpecification.searchCarSpecification;
 
@@ -26,6 +30,9 @@ import static com.example.carinfosystem.repository.CarSearchSpecification.search
 public class CarController {
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private ExtraRepository extraRepository;
 
     @GetMapping("/fuels")
     public List<String> getFuelTypes(){
@@ -84,9 +91,23 @@ public class CarController {
     }
 
     @PostMapping
-    public Car save(@RequestBody Car car){
+    public Car save(@RequestBody SaveCarDto saveCarDto){
         try{
-            car.setId(null);
+            Car car = new Car();
+            car.setCarType(CarType.valueOf(saveCarDto.getCarType()));
+            car.setFuelType(FuelType.valueOf(saveCarDto.getFuelType()));
+            car.setColor(Color.valueOf(saveCarDto.getColor()));
+            car.setBranch(saveCarDto.getBranch());
+            if(saveCarDto.getExtras() != null && saveCarDto.getExtras().size() > 0){
+                List<Extra> extras = saveCarDto.getExtras().stream().map(str -> extraRepository.findByName(str)).collect(Collectors.toList());
+                car.setExtras(extras);
+            }
+            car.setModel(saveCarDto.getModel());
+            car.setProductionYear(saveCarDto.getProductionYear());
+            if(saveCarDto.getRegistrationNumber() != null && !saveCarDto.getRegistrationNumber().equals("")){
+                car.setRegistrationNumber(saveCarDto.getRegistrationNumber());
+            }
+
             car.setDeleted(false);
             return carRepository.save(car);
         } catch (Exception e){
