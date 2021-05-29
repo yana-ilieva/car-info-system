@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/branches")
+@CrossOrigin(origins = "http://localhost:8080")
 public class BranchController {
 
     @Autowired

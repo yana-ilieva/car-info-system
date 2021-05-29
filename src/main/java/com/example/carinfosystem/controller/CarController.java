@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import static com.example.carinfosystem.repository.CarSearchSpecification.search
 
 @RestController
 @RequestMapping("/cars")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CarController {
     @Autowired
     private CarRepository carRepository;

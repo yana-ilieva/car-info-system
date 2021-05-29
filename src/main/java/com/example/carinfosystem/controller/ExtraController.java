@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/extras")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ExtraController {
 
     @Autowired

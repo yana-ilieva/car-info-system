@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/models")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ModelController {
 
     @Autowired
