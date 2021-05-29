@@ -40,7 +40,7 @@ public final class CarSearchSpecification {
                 predicates.add(cb.equal(root.get("branch"), searchCarDto.getBranch()));
             }
             if(searchCarDto.getBrand() != null){
-                predicates.add(cb.equal(root.get("model").get("brand"), searchCarDto.getBrand()));
+                predicates.add(cb.equal(root.get("model").get("brand").get("name"), searchCarDto.getBrand()));
             }
             if(searchCarDto.getModel() != null){
                 predicates.add(cb.equal(root.get("model"), searchCarDto.getModel()));

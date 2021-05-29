@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class SearchCarDto {
     private Long branch;
-    private Long brand;
+    private String brand;
     private Long model;
     private Long city;
     private String fuelType;
